@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">500px Mobile Challenge</string>
+
+
+    <string name="api_key">fseMsLTQsODJBgH940bDNdWerKwfVYb56CpzoQL9</string>
+
+    <string name="api_url_photos">https://api.500px.com/v1/photos</string>
 </resources>
