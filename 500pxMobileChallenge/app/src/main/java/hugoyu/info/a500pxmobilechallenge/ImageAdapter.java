@@ -1,8 +1,13 @@
 package hugoyu.info.a500pxmobilechallenge;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.LruCache;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,13 +65,30 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(ImageAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(final ImageAdapter.ViewHolder holder, int position) {
         String imageUrl = data.get(position);
         holder.networkImageView.setImageUrl(imageUrl, imageLoader);
         ViewGroup.LayoutParams layoutParams = holder.networkImageView.getLayoutParams();
         if (layoutParams instanceof FlexboxLayoutManager.LayoutParams) {
             ((FlexboxLayoutManager.LayoutParams) layoutParams).setFlexGrow(1.0f);
         }
+
+        holder.networkImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, FullScreenActivity.class);
+
+                Bitmap bmp = ((BitmapDrawable) holder.networkImageView.getDrawable()).getBitmap();
+                MySharedBitmap.bmp = bmp;
+
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation((Activity) context,
+                                holder.networkImageView,
+                                ViewCompat.getTransitionName(holder.networkImageView));
+
+                context.startActivity(intent, options.toBundle());
+            }
+        });
     }
 
     public void addData(ArrayList<String> newData) {

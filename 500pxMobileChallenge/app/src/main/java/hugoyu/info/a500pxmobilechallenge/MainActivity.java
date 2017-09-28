@@ -88,18 +88,16 @@ public class MainActivity extends AppCompatActivity {
                 int firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
 
 
-                    if (!loading) {
-                        if ((visibleItemCount + firstVisibleItem) >= totalItemCount - 5) {
-                            Log.d("Page Loading", String.valueOf(nextPage));
-                            loadNextPage(false);
-                        }
+                if (!loading) {
+                    if ((visibleItemCount + firstVisibleItem) >= totalItemCount - 5) {
+                        loadNextPage(false);
                     }
+                }
             }
         });
     }
 
     /**
-     *
      * @param replace whether to replace newly fetched data, true when refreshing
      */
     private void loadNextPage(final boolean replace) {
@@ -109,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
         url += "&consumer_key=" + getString(R.string.api_key);
         url += "&page=" + nextPage;
 
+        Log.d("Page Loading", String.valueOf(nextPage));
         loading = true;
         mRequestQueue.add(new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -120,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
                             JSONArray jsonArray = response.getJSONArray("photos");
                             ArrayList<String> newData = new ArrayList<String>();
                             for (int i = 0; i < jsonArray.length(); i++) {
-
                                 JSONObject myPhotoObj = jsonArray.getJSONObject(i);
                                 if (myPhotoObj.getInt("category") != 4) { // if photo is not nude
                                     newData.add(myPhotoObj.getJSONArray("images").
