@@ -4,7 +4,7 @@
     android:id="@+id/mSwipeRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="hugoyu.info.a500pxmobilechallenge.MainActivity">
+    tools:context="hugoyu.info.a500pxmobilechallenge.activity.MainActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/mRecyclerView"
