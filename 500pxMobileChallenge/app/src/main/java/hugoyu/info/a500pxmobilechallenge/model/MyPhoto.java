@@ -6,7 +6,6 @@ package hugoyu.info.a500pxmobilechallenge.model;
 
 public class MyPhoto {
 
-    private String focalLength;
     private String iso;
     private String shutterSpeed;
     private String aperture;
@@ -14,19 +13,14 @@ public class MyPhoto {
     private String userDisplayName;
     private String userPicUrl;
 
-    public MyPhoto(String focalLength, String iso, String shutterSpeed, String aperture,
+    public MyPhoto(String iso, String shutterSpeed, String aperture,
                    String photoUrl, String userDisplayName, String userPicUrl) {
-        this.focalLength = focalLength;
         this.iso = iso;
         this.shutterSpeed = shutterSpeed;
         this.aperture = aperture;
         this.photoUrl = photoUrl;
         this.userDisplayName = userDisplayName;
         this.userPicUrl = userPicUrl;
-    }
-
-    public String getFocalLength() {
-        return focalLength;
     }
 
     public String getIso() {

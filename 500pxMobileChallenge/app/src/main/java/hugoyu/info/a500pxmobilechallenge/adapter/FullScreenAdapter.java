@@ -7,6 +7,7 @@ import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
@@ -14,6 +15,7 @@ import com.android.volley.toolbox.Volley;
 
 import hugoyu.info.a500pxmobilechallenge.R;
 import hugoyu.info.a500pxmobilechallenge.model.MyGallery;
+import hugoyu.info.a500pxmobilechallenge.model.MyPhoto;
 import hugoyu.info.a500pxmobilechallenge.model.MySharedImageLoader;
 
 /**
@@ -61,10 +63,44 @@ public class FullScreenAdapter extends PagerAdapter {
         LayoutInflater inflater = LayoutInflater.from(context);
 
         View v = inflater.inflate(R.layout.item_full_screen_photo, container, false);
-        NetworkImageView networkImageView = (NetworkImageView) v.findViewById(R.id.mNetworkImageView);
 
-        String imageUrl = MyGallery.getData().get(position).getPhotoUrl();
-        networkImageView.setImageUrl(imageUrl, imageLoader);
+        MyPhoto myPhoto = MyGallery.getData().get(position);
+
+        NetworkImageView networkImgPhoto = (NetworkImageView) v.findViewById(R.id.mNetworkImageView);
+        networkImgPhoto.setImageUrl(myPhoto.getPhotoUrl(), imageLoader);
+
+        NetworkImageView networkImgProfilePic = (NetworkImageView) v.findViewById(R.id.networkImgProfilePic);
+        networkImgProfilePic.setImageUrl(myPhoto.getUserPicUrl(), imageLoader);
+
+        TextView textFullName = (TextView) v.findViewById(R.id.textFullName);
+        textFullName.setText(myPhoto.getUserDisplayName());
+
+        TextView textSpeed = (TextView) v.findViewById(R.id.textSpeed);
+        String shutterSpeed = myPhoto.getShutterSpeed();
+        if (shutterSpeed.equals("null") || shutterSpeed.equals("")) {
+            textSpeed.setText("N/A");
+        } else {
+            textSpeed.setText(shutterSpeed + "s");
+        }
+
+        TextView textAperture = (TextView) v.findViewById(R.id.textAperture);
+        String aperture = myPhoto.getAperture();
+        if (aperture.equals("null") || aperture.equals("")) {
+            textAperture.setText("N/A");
+        } else {
+            if (!aperture.contains(".")) {
+                aperture += ".0";
+            }
+            textAperture.setText("f/" + aperture);
+        }
+
+        TextView textIso = (TextView) v.findViewById(R.id.textIso);
+        String iso = myPhoto.getIso();
+        if (iso.equals("null") || iso.equals("")) {
+            textIso.setText("N/A");
+        } else {
+            textIso.setText(iso);
+        }
 
         container.addView(v, 0);
 

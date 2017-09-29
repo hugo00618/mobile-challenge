@@ -92,7 +92,6 @@ public class MyGallery {
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject myPhotoObj = jsonArray.getJSONObject(i);
                                 if (myPhotoObj.getInt("category") != 4) { // if photo is not nude
-                                    String focalLength = myPhotoObj.getString("focal_length");
                                     String iso = myPhotoObj.getString("iso");
                                     String shutterSpeed = myPhotoObj.getString("shutter_speed");
                                     String aperture = myPhotoObj.getString("aperture");
@@ -100,7 +99,7 @@ public class MyGallery {
                                     String userDisplayName = myPhotoObj.getJSONObject("user").getString("fullname");
                                     String userPicUrl = myPhotoObj.getJSONObject("user").getString("userpic_url");
 
-                                    MyPhoto newPhoto = new MyPhoto(focalLength, iso, shutterSpeed,
+                                    MyPhoto newPhoto = new MyPhoto(iso, shutterSpeed,
                                             aperture, photoUrl, userDisplayName, userPicUrl);
 
                                     newData.add(newPhoto);
