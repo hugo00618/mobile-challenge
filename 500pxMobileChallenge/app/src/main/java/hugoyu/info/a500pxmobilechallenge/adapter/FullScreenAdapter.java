@@ -22,7 +22,7 @@ import hugoyu.info.a500pxmobilechallenge.model.MySharedImageLoader;
  * Created by Hugo on 2017-09-28.
  */
 
-public class FullScreenAdapter extends PagerAdapter {
+public class FullScreenAdapter extends PagerAdapter implements DataChangeNotifiable {
 
     Context context;
     MySharedImageLoader imageLoader;

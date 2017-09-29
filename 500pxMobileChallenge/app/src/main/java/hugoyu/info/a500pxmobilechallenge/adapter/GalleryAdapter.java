@@ -27,7 +27,8 @@ import hugoyu.info.a500pxmobilechallenge.model.MySharedImageLoader;
  * Created by Hugo on 2017-09-26.
  */
 
-public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder> implements GreedoLayoutSizeCalculator.SizeCalculatorDelegate {
+public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder> implements
+        GreedoLayoutSizeCalculator.SizeCalculatorDelegate, DataChangeNotifiable {
 
     Context context;
 

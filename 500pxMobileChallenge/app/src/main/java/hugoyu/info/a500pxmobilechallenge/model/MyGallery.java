@@ -17,7 +17,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import hugoyu.info.a500pxmobilechallenge.R;
-import hugoyu.info.a500pxmobilechallenge.adapter.GalleryAdapter;
+import hugoyu.info.a500pxmobilechallenge.adapter.DataChangeNotifiable;
 
 /**
  * Created by Hugo on 2017-09-28.
@@ -52,17 +52,17 @@ public class MyGallery {
         return data;
     }
 
-    public void addData(ArrayList<MyPhoto> newData, GalleryAdapter adapter) {
+    public void addData(ArrayList<MyPhoto> newData, DataChangeNotifiable adapter) {
         data.addAll(newData);
         adapter.notifyDataSetChanged();
     }
 
-    public void replaceData(ArrayList<MyPhoto> newData, GalleryAdapter adapter) {
+    public void replaceData(ArrayList<MyPhoto> newData, DataChangeNotifiable adapter) {
         data = newData;
         adapter.notifyDataSetChanged();
     }
 
-    public void loadNextPage(final boolean refresh, final GalleryAdapter adapter,
+    public void loadNextPage(final boolean refresh, final DataChangeNotifiable adapter,
                              @Nullable final SwipeRefreshLayout mSwipeRefreshLayout) {
         if (loading) {
             return;

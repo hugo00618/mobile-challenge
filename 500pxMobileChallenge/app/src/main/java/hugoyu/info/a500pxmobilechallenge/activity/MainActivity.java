@@ -50,6 +50,11 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
+                boolean dirtyBit = data.getBooleanExtra("dirty", false);
+                if (dirtyBit) {
+                    mAdapter.notifyDataSetChanged();
+                }
+
                 int position = data.getIntExtra("position", 0);
                 mRecyclerView.scrollToPosition(position);
             }
@@ -97,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
                 int firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
 
                 // if scrolled to the last 5 images, load next page
-                if ((visibleItemCount + firstVisibleItem) >= totalItemCount - 5) {
+                if ((visibleItemCount + firstVisibleItem) >= totalItemCount - 10) {
                     myGallery.loadNextPage(false, mAdapter, null);
                 }
             }
