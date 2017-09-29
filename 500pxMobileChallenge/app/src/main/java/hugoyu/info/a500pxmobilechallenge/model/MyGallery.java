@@ -1,7 +1,7 @@
 package hugoyu.info.a500pxmobilechallenge.model;
 
 import android.content.Context;
-import android.graphics.Bitmap;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 
@@ -32,7 +32,7 @@ public class MyGallery {
     Context context;
     RequestQueue mRequestQueue;
 
-    public static Bitmap sharedBitmap;
+//    public static Bitmap sharedBitmap;
 
     private static MyGallery instance;
 
@@ -63,11 +63,12 @@ public class MyGallery {
     }
 
     public void loadNextPage(final boolean refresh, final GalleryAdapter adapter,
-                             final SwipeRefreshLayout mSwipeRefreshLayout) {
+                             @Nullable final SwipeRefreshLayout mSwipeRefreshLayout) {
         if (loading) {
             return;
         }
 
+        // reset nextPage to 1 if it's refreshing gallery
         if (refresh) {
             nextPage = 1;
         }
@@ -106,13 +107,14 @@ public class MyGallery {
                                 }
                             }
 
-                            if (refresh) {
+                            if (refresh) { // if refresh, replace data
                                 replaceData(newData, adapter);
-                            } else {
+                            } else { // otherwise concatenate new data
                                 addData(newData, adapter);
                             }
 
                             loading = false;
+                            // stop refresh animation if there is any
                             if (mSwipeRefreshLayout != null) {
                                 mSwipeRefreshLayout.setRefreshing(false);
                             }

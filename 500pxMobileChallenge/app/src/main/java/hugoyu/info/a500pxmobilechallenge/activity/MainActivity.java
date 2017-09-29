@@ -30,12 +30,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // view
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.mSwipeRefreshLayout);
         initSwipeRefreshLayout();
         mRecyclerView = (RecyclerView) findViewById(R.id.mRecyclerView);
         initRecyclerView();
 
+        // refresh photos
         mSwipeRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
@@ -50,12 +50,12 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 1) {
-            if(resultCode == Activity.RESULT_OK){
-                int position =data.getIntExtra("position", 0);
+            if (resultCode == Activity.RESULT_OK) {
+                int position = data.getIntExtra("position", 0);
                 mRecyclerView.scrollToPosition(position);
             }
         }
-    }//onActivityResult
+    }
 
     private void initSwipeRefreshLayout() {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 int totalItemCount = layoutManager.getItemCount();
                 int firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
 
+                // if scrolled to the last 5 images, load next page
                 if ((visibleItemCount + firstVisibleItem) >= totalItemCount - 5) {
                     myGallery.loadNextPage(false, mAdapter, null);
                 }

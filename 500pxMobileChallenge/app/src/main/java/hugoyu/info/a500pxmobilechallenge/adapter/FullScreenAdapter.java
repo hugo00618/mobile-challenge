@@ -25,7 +25,6 @@ import hugoyu.info.a500pxmobilechallenge.model.MySharedImageLoader;
 public class FullScreenAdapter extends PagerAdapter {
 
     Context context;
-
     MySharedImageLoader imageLoader;
 
     public FullScreenAdapter(Context context) {
@@ -66,15 +65,19 @@ public class FullScreenAdapter extends PagerAdapter {
 
         MyPhoto myPhoto = MyGallery.getData().get(position);
 
+        // photo
         NetworkImageView networkImgPhoto = (NetworkImageView) v.findViewById(R.id.mNetworkImageView);
         networkImgPhoto.setImageUrl(myPhoto.getPhotoUrl(), imageLoader);
 
+        // user profile pic
         NetworkImageView networkImgProfilePic = (NetworkImageView) v.findViewById(R.id.networkImgProfilePic);
         networkImgProfilePic.setImageUrl(myPhoto.getUserPicUrl(), imageLoader);
 
+        // user display name
         TextView textFullName = (TextView) v.findViewById(R.id.textFullName);
         textFullName.setText(myPhoto.getUserDisplayName());
 
+        // shutter speed
         TextView textSpeed = (TextView) v.findViewById(R.id.textSpeed);
         String shutterSpeed = myPhoto.getShutterSpeed();
         if (shutterSpeed.equals("null") || shutterSpeed.equals("")) {
@@ -83,17 +86,21 @@ public class FullScreenAdapter extends PagerAdapter {
             textSpeed.setText(shutterSpeed + "s");
         }
 
+        // aperture
         TextView textAperture = (TextView) v.findViewById(R.id.textAperture);
         String aperture = myPhoto.getAperture();
         if (aperture.equals("null") || aperture.equals("")) {
             textAperture.setText("N/A");
         } else {
+            // f/8 just looks awkward... append ".0" at the end if it's a int
             if (!aperture.contains(".")) {
                 aperture += ".0";
             }
+
             textAperture.setText("f/" + aperture);
         }
 
+        // iso
         TextView textIso = (TextView) v.findViewById(R.id.textIso);
         String iso = myPhoto.getIso();
         if (iso.equals("null") || iso.equals("")) {

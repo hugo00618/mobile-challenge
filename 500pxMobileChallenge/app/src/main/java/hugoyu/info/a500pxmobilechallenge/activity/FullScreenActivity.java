@@ -27,15 +27,16 @@ public class FullScreenActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         mViewPager = (ViewPager) findViewById(R.id.mViewPager);
-
         mAdapter = new FullScreenAdapter(this);
         mViewPager.setAdapter(mAdapter);
 
+        // scroll to tapped image
         mViewPager.setCurrentItem(getIntent().getIntExtra("position", 0), false);
     }
 
     @Override
     public void onBackPressed() {
+        // return current image index to MainActivity
         Intent returnIntent = new Intent();
         returnIntent.putExtra("position", mViewPager.getCurrentItem());
         setResult(Activity.RESULT_OK,returnIntent);

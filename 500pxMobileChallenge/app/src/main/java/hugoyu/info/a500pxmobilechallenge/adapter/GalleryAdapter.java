@@ -83,9 +83,11 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
         }
 
         public void bindView(int position) {
-            String imageUrl = MyGallery.getData().get(position).getPhotoUrl();
-            networkImageView.setImageUrl(imageUrl, imageLoader);
+            // thumbnail
+            String photoUrl = MyGallery.getData().get(position).getPhotoUrl();
+            networkImageView.setImageUrl(photoUrl, imageLoader);
 
+            // layout params for flex box
             ViewGroup.LayoutParams layoutParams = networkImageView.getLayoutParams();
             if (layoutParams instanceof FlexboxLayoutManager.LayoutParams) {
                 ((FlexboxLayoutManager.LayoutParams) layoutParams).setFlexGrow(1.0f);
