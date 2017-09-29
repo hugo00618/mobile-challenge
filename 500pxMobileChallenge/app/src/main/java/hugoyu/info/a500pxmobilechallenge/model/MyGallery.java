@@ -99,9 +99,10 @@ public class MyGallery {
                                     String photoUrl = myPhotoObj.getJSONArray("images").getJSONObject(0).getString("url");
                                     String userDisplayName = myPhotoObj.getJSONObject("user").getString("fullname");
                                     String userPicUrl = myPhotoObj.getJSONObject("user").getString("userpic_url");
-
-                                    MyPhoto newPhoto = new MyPhoto(iso, shutterSpeed,
-                                            aperture, photoUrl, userDisplayName, userPicUrl);
+                                    int width = myPhotoObj.getInt("width");
+                                    int height = myPhotoObj.getInt("height");
+                                    MyPhoto newPhoto = new MyPhoto(iso, shutterSpeed, aperture,
+                                            photoUrl, userDisplayName, userPicUrl, width, height);
 
                                     newData.add(newPhoto);
                                 }

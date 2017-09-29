@@ -14,6 +14,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
+import com.fivehundredpx.greedolayout.GreedoLayoutSizeCalculator;
 import com.google.android.flexbox.AlignSelf;
 import com.google.android.flexbox.FlexboxLayoutManager;
 
@@ -26,7 +27,7 @@ import hugoyu.info.a500pxmobilechallenge.model.MySharedImageLoader;
  * Created by Hugo on 2017-09-26.
  */
 
-public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder> {
+public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder> implements GreedoLayoutSizeCalculator.SizeCalculatorDelegate {
 
     Context context;
 
@@ -72,6 +73,16 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
     @Override
     public int getItemCount() {
         return MyGallery.getData().size();
+    }
+
+    @Override
+    public double aspectRatioForIndex(int i) {
+//        Log.d("aspectRatioForIndex", String.valueOf(i));
+
+        if (i >= MyGallery.getData().size()) {
+            return 1;
+        }
+        return MyGallery.getData().get(i).getAspectRatio();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

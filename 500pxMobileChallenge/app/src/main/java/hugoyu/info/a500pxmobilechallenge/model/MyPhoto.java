@@ -12,15 +12,18 @@ public class MyPhoto {
     private String photoUrl;
     private String userDisplayName;
     private String userPicUrl;
+    int width, height;
 
     public MyPhoto(String iso, String shutterSpeed, String aperture,
-                   String photoUrl, String userDisplayName, String userPicUrl) {
+                   String photoUrl, String userDisplayName, String userPicUrl, int width, int height) {
         this.iso = iso;
         this.shutterSpeed = shutterSpeed;
         this.aperture = aperture;
         this.photoUrl = photoUrl;
         this.userDisplayName = userDisplayName;
         this.userPicUrl = userPicUrl;
+        this.width = width;
+        this.height = height;
     }
 
     public String getIso() {
@@ -45,5 +48,17 @@ public class MyPhoto {
 
     public String getUserPicUrl() {
         return userPicUrl;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public double getAspectRatio() {
+        return width * 1.0 / height;
     }
 }

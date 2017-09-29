@@ -6,12 +6,11 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 
 import com.android.volley.toolbox.Volley;
-import com.google.android.flexbox.AlignItems;
-import com.google.android.flexbox.FlexDirection;
-import com.google.android.flexbox.FlexWrap;
-import com.google.android.flexbox.FlexboxLayoutManager;
+import com.fivehundredpx.greedolayout.GreedoLayoutManager;
+import com.fivehundredpx.greedolayout.GreedoSpacingItemDecoration;
 
 import hugoyu.info.a500pxmobilechallenge.R;
 import hugoyu.info.a500pxmobilechallenge.adapter.GalleryAdapter;
@@ -73,14 +72,20 @@ public class MainActivity extends AppCompatActivity {
     private void initRecyclerView() {
         myGallery = MyGallery.getInstance(this, Volley.newRequestQueue(this));
 
-        final FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(this);
-        layoutManager.setFlexDirection(FlexDirection.ROW);
-        layoutManager.setFlexWrap(FlexWrap.WRAP);
-        layoutManager.setAlignItems(AlignItems.STRETCH);
-        mRecyclerView.setLayoutManager(layoutManager);
-
         mAdapter = new GalleryAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
+
+        final GreedoLayoutManager layoutManager = new GreedoLayoutManager(mAdapter);
+        layoutManager.setMaxRowHeight(dpToPx(160));
+        mRecyclerView.setLayoutManager(layoutManager);
+        int spacing = dpToPx(3);
+        mRecyclerView.addItemDecoration(new GreedoSpacingItemDecoration(spacing));
+
+//        final FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(this);
+//        layoutManager.setFlexDirection(FlexDirection.ROW);
+//        layoutManager.setFlexWrap(FlexWrap.WRAP);
+//        layoutManager.setAlignItems(AlignItems.STRETCH);
+//        mRecyclerView.setLayoutManager(layoutManager);
 
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -97,6 +102,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private int dpToPx(float dp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getResources().getDisplayMetrics());
     }
 
 
