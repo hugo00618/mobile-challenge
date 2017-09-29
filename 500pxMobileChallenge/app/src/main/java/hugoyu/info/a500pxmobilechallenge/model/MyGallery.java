@@ -32,6 +32,8 @@ public class MyGallery {
     Context context;
     RequestQueue mRequestQueue;
 
+    ArrayList<DataChangeNotifiable> notifyingAdapters = new ArrayList<>();
+
 //    public static Bitmap sharedBitmap;
 
     private static MyGallery instance;
@@ -52,18 +54,28 @@ public class MyGallery {
         return data;
     }
 
-    public void addData(ArrayList<MyPhoto> newData, DataChangeNotifiable adapter) {
+    public void addData(ArrayList<MyPhoto> newData) {
         data.addAll(newData);
-        adapter.notifyDataSetChanged();
+        notifyDataChange();
     }
 
-    public void replaceData(ArrayList<MyPhoto> newData, DataChangeNotifiable adapter) {
+    public void replaceData(ArrayList<MyPhoto> newData) {
         data = newData;
-        adapter.notifyDataSetChanged();
+        notifyDataChange();
+    }
+
+    public void notifyDataChange() {
+        for (DataChangeNotifiable adapter: notifyingAdapters) {
+            adapter.notifyDataSetChanged();
+        }
+        notifyingAdapters = new ArrayList<>();
     }
 
     public void loadNextPage(final boolean refresh, final DataChangeNotifiable adapter,
                              @Nullable final SwipeRefreshLayout mSwipeRefreshLayout) {
+        // add adapter to notify list
+        notifyingAdapters.add(adapter);
+
         if (loading) {
             return;
         }
@@ -109,9 +121,9 @@ public class MyGallery {
                             }
 
                             if (refresh) { // if refresh, replace data
-                                replaceData(newData, adapter);
+                                replaceData(newData);
                             } else { // otherwise concatenate new data
-                                addData(newData, adapter);
+                                addData(newData);
                             }
 
                             loading = false;
